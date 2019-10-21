@@ -1,44 +1,47 @@
+/*
+	Solution for question 8.31 part a)
+	COMP 3150 -- Introduction to C/C++ Programming
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
+#define SIZE 1024
+#define LETTERS 26;
 
-int length[29];
+int count[LETTERS];
 
 int main()
 {
+	// ASCII letter references
+    // 65 - 90 is A to Z
+    // 97 - 122 is a to z
 
-	char str[1024];
+	char str[SIZE];
 
 	printf("%s", "Please enter a string: ");
-	fgets(&str, 1024, stdin);
+	fgets(&str, SIZE, stdin);
 
-	int word = 0;
-
+	// Begin cycling through the input string
 	for (int i = 0; str[i] != '\0'; i++) {
-
-		if (str[i] != ' ') {
-			word++;
-		} else {
-			if (word >= 29) {
-				length[28]++;
-			} else {
-				length[word - 1]++;
-				word = 0;
-			}
-
+		// Check if current character is an alphabetical letter
+		if (isalpha(str[i])) {
+			// Find the ASCII value of the letter and subtract by 1 for indexing
+			int val = (int)str[i] - 1;
+			
+			// Debug line
+			// printf("%c is %d\n", str[i], (val % 32));
+			
+			// Increment count of the specific letter in count array by one
+			// Using modulo two to relate indices of array to ASCII character values
+			count[val % 32]++;
 		}
-
 	}
 
-	length[word - 2]++;
-
-	puts("\nLength | Occurrences\n-------------");
-	for (int i = 0; i < 28; i++) {
-		printf("%6d | %6d\n", i + 1, length[i]);
+	// Print out table of all letters
+	puts("\nChar | Occurrences\n-------------");
+	for (int i = 0; i < LETTERS; i++) {
+		printf("%4c | %4d\n", (char)(i + 65), count[i]);
 	}
-
-	printf("%6s | %6d\n", "> 28", length[28]);
-
-	printf("%s\n", str);
 
     return 0;
 }
