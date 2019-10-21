@@ -33,7 +33,7 @@ int main()
 
         length[word - 2]++;
 
-        puts("\Length | Occurrences\n-------------");
+        puts("\nLength | Occurrences\n-------------");
         for (int i = 0; i < 28; i++) {
             printf("%6d | %6d\n", i + 1, length[i]);
         }
