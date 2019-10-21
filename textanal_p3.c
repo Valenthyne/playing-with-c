@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -5,6 +6,8 @@
 #define SIZE 1024
 
 char count[SIZE];
+
+char * convert(char * ptr);
 
 int main() {
 
@@ -26,7 +29,8 @@ int main() {
 
     while (word != NULL) {
         // Makes it easier to convert all words to lower case
-        strlwr(word);
+		// Using a custom function instead of strlwr() to allow for GCC compliance
+		convert(word);
 
         // Find length of the word
         int wordLength = strlen(word);
@@ -46,7 +50,7 @@ int main() {
             for (int j = 0; j < wordLength; j++) {
                 char temp = word[j];
                 word[j] = word[j+1];
-                word[j+1] = temp;
+                word[j + 1] = temp;
             }
             word[wordLength - 1] = '\0';
         }
@@ -56,6 +60,7 @@ int main() {
 
         // Steadily compare word to the others
         for (i = 0; i < index && firstAppearance; i++) {
+			// Compare dictionary entries thus far to current word
             if (strcmp(dictionary[i], word) == 0)
                 firstAppearance = false;
         }
@@ -83,4 +88,20 @@ int main() {
     }
 
     return 0;
+}
+
+char * convert(char * word) {
+	
+	// Point to first character in the word
+	char * p = (char *) word;
+	
+	// Cycle through all characters
+	while (* p != NULL) {
+		// Convert the character to lower case
+		* p = tolower((char) * p);
+		p++;
+	}
+	
+	return word;
+	
 }
