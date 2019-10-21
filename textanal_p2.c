@@ -37,15 +37,16 @@ int main()
 	}
 
 	length[word - 2]++;
+	
+	printf("\n%s: %s", "Given the input string", str);
 
-	puts("\nLength | Occurrences\n-------------");
+	puts("\nLength | Occurrences\n---------------------");
 	for (int i = 0; i < MAX_LENGTH - 1; i++) {
 		printf("%6d | %6d\n", i + 1, length[i]);
 	}
 
 	printf("%6s | %6d\n", "> 28", length[MAX_LENGTH - 1]);
-
-	printf("%s\n", str);
+	puts("");
 
     return 0;
 }
