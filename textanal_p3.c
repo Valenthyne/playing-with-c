@@ -87,6 +87,8 @@ int main() {
         printf("%30s | %d\n", dictionary[i], count[i]);
     }
 
+	puts("");
+	
     return 0;
 }
 
