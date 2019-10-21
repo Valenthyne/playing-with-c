@@ -1,14 +1,8 @@
-/*
-	Solution for question 8.31 part a)
-	COMP 3150 -- Introduction to C/C++ Programming
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 1024
-#define LETTERS 26;
 
-int count[LETTERS];
+int count[26];
 
 int main()
 {
@@ -32,16 +26,18 @@ int main()
 			// printf("%c is %d\n", str[i], (val % 32));
 			
 			// Increment count of the specific letter in count array by one
-			// Using modulo two to relate indices of array to ASCII character values
+			// Using modulo too to relate indices of array to ASCII character values
 			count[val % 32]++;
 		}
 	}
 
 	// Print out table of all letters
+	printf("\n%s: %s", "Given the string", str);
 	puts("\nChar | Occurrences\n-------------");
-	for (int i = 0; i < LETTERS; i++) {
+	for (int i = 0; i < 26; i++) {
 		printf("%4c | %4d\n", (char)(i + 65), count[i]);
 	}
+	puts("");
 
     return 0;
 }
