@@ -67,7 +67,7 @@ void viewProfile (struct HealthProfile p) {
     printf("\n%15s: %d bpm to %d bpm", "Heart Rate", thrData[0], thrData[1]);
     printf("\n%15s: %.2f\n", "BMI", bmi(p.weight, p.height));
     printBMI();
-    puts("\n\nEnd of record.");
+    puts("\n\nEnd of record.\n");
 
 }
 
