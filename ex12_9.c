@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_CHAR 10
 
 struct Node {
     char data;
@@ -36,8 +37,12 @@ int main()
         c++;
     }
 
-    printf("\nReversed List:");
     NodePtr rev = reverse(start);
+
+    printf("\nOriginal List:");
+    display(start);
+
+    printf("\nReversed List:");
     display(rev);
 
     return 0;
@@ -89,8 +94,23 @@ void display(NodePtr* ptr) {
 
 NodePtr reverse(NodePtr * ptr) {
 
+    char val[MAX_CHAR] = {};
+    int index = 0;
+
+    NodePtr rev = NULL;
+    NodePtr cur = ptr;
+
+    while (cur != NULL) {
+        val[index++] = cur->data;
+        cur = cur->next;
+    }
+
+    for (size_t i = 0; i < MAX_CHAR; i++) {
+        insert(&rev, val[i]);
+    }
+
     NodePtr head = NULL;
-    NodePtr tail = ptr;
+    NodePtr tail = rev;
 
     while (tail != NULL) {
         NodePtr temp = tail->next;
