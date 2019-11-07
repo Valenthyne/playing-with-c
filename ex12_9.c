@@ -60,10 +60,10 @@ void insert(NodePtr *sPtr, char v) {
         NodePtr prev = NULL;
         NodePtr cur = * sPtr;
 
-        while (cur != NULL && v > cur->data) {
-        prev = cur;
-        cur = cur->next;
-        count++;
+        while (cur != NULL) {
+            prev = cur;
+            cur = cur->next;
+            count++;
         }
 
         if (prev == NULL) {
