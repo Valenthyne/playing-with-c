@@ -1,10 +1,3 @@
-/*
-	Need to create:
-	-- 3 reader threads
-	-- 3 converter threads
-	-- 3 writer threads
-*/
-
 // Directives
 #include <pthread.h>
 #include <stdio.h> 
@@ -14,46 +7,97 @@
 #include <unistd.h> 
 
 // Constants
-#define BUFFER_SIZE 1024
+#define STR_LENGTH 100
 
 // Function prototypes
-void reader();
-void writer(char * ptr);
-void convert(char * ptr);
+void reader(void * bufA);
+void converter(void * bufA);
+void writer(void * bufB);
 
-char bufA[BUFFER_SIZE];
+pthread_t rdr[3];
+pthread_t conv[3];
+pthread_t wtr[3];
+
+pthread_mutex_t rdr_lock;
+pthread_mutex_t conv_lock;
+pthread_mutex_t wtr_lock;
+
+char bufA[STR_LENGTH];
+char bufB[STR_LENGTH];
 
 int main(void) {
 	
-	// pthread_create(tid, NULL, (void *) func, (void *) args)
-	
-	reader();
-	convert(bufA);
-	writer(bufA);
+	for (int i = 0; i < 3; i++) {
+		pthread_create(&rdr[i], NULL, &reader, (void *) bufA);
+	}
 
+	// Works up to here
+
+	for (int i = 0; i < 3; i++) {
+		pthread_create(&conv[i], NULL, &converter, (void *) bufA);
+	}
+	
+	for (int i = 0; i < 3; i++) {
+		pthread_create(&wtr[i], NULL, &writer, (void *) bufB);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		pthread_join(rdr[i], NULL);
+	}
+	
+	for (int i = 0; i < 3; i++) {
+		pthread_join(conv[i], NULL);
+	}
+	
+	for (int i = 0; i < 3; i++) {
+		pthread_join(wtr[i], NULL);
+	}
 	
 	return 0;
 }
 
-void reader() {
+void reader(void * bufA) {
 
-	printf("%s: ", "Input a string");
-	fgets(bufA, BUFFER_SIZE, stdin);
+	pthread_mutex_lock(&rdr_lock);
+
+	printf("%s: ", "Input a string: ");
+	fgets((char *) bufA, STR_LENGTH, stdin);
+	
+	pthread_mutex_unlock(&rdr_lock);
 	
 }
 
-void convert(char * ptr) {
+void converter(void * bufA) {
 	
-	for (int i = 0; i < strlen(ptr); i++) {
-		if (ptr[i] == ' ') {
-			ptr[i] = '%';
+	pthread_mutex_lock(&conv_lock);
+	
+	char newStr[STR_LENGTH];
+	strcpy(newStr, bufA);
+	
+	// Conversion process
+	for (int i = 0; i < strlen(newStr); i++) {
+		if (newStr[i] == ' ') {
+			newStr[i] = '%';
 		}
 	}
 	
+	strcpy(bufB, bufA);
+		
+	pthread_mutex_unlock(&conv_lock);
+
 }
 
-void writer(char * ptr) {
+void writer(void * bufB) {
 	
-	printf("%s", ptr);
+	printf("Writer gang");
+	
+	pthread_mutex_unlock(&wtr_lock);
+	
+	char newStr[STR_LENGTH];
+	strcpy(newStr, (char *) bufB);
+	
+	printf("%s", newStr);
+	
+	pthread_mutex_unlock(&wtr_lock);
 	
 }
