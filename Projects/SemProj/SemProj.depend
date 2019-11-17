@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1573963972 source:c:\users\drachy\documents\codeblocks\semproj\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	<time.h>
+	"tree.h"
+	"queue.h"
+	"linkedlist.h"
+	"stack.h"
+
+1573962276 c:\users\drachy\documents\codeblocks\semproj\tree.h
+
+1573962283 c:\users\drachy\documents\codeblocks\semproj\queue.h
+
+1573962467 c:\users\drachy\documents\codeblocks\semproj\linkedlist.h
+
+1573962473 c:\users\drachy\documents\codeblocks\semproj\stack.h
+
