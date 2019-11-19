@@ -6,8 +6,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #define MAX_CHAR 10
 
+// Basic constructs for a linked list structure
 struct Node {
     char data;
     struct Node *next;
@@ -16,6 +18,7 @@ struct Node {
 typedef struct Node Node;
 typedef Node * NodePtr;
 
+// Function prototypes for linked list operations
 void insert(NodePtr *ptr, char v);
 void display(NodePtr *ptr);
 NodePtr reverse(NodePtr *ptr);
