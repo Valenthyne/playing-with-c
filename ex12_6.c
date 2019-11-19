@@ -21,7 +21,7 @@ void insert(NodePtr *ptr, char v);
 void display(NodePtr *ptr);
 void concatenate(NodePtr *p1, NodePtr *p2);
 
-int main()
+int main(void)
 {
 
     // Initialize pointers for the two lists
