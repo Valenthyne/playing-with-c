@@ -6,6 +6,7 @@
 
 int check(char * str);
 
+// Basic constructs for a stack structure
 struct stackNode {
     char data;
     struct stackNode * nextPtr;
@@ -14,8 +15,7 @@ struct stackNode {
 typedef struct stackNode Node;
 typedef Node * NodePtr;
 
-// Stack function protoypes
-
+// Stack function prototypes
 void push(NodePtr * top, int info);
 int pop(NodePtr * top);
 int isEmpty(NodePtr top);
@@ -39,7 +39,18 @@ int main()
 
 int check(char * str) {
 
-    int len = strlen(str);
+    char clean[MAX_SIZE];
+    int index = 0;
+
+    for (int i = 0; i < strlen(str); i++) {
+        if (isalpha(str[i])) {
+            clean[index++] = tolower(str[i]);
+        }
+    }
+
+    clean[index] = '\0';
+
+    int len = strlen(clean);
 
     if (len == 1) {
         return 1;
@@ -50,20 +61,20 @@ int check(char * str) {
     NodePtr stack = NULL;
 
     for (int i = 0; i < mid; i++) {
-            push(&stack, str[i]);
+            push(&stack, clean[i]);
     }
 
     if (len % 2 != 0) {
         for (int i = mid + 1; i < len; i++) {
             char ch = pop(&stack);
-            if (ch != str[i]) {
+            if (ch != clean[i]) {
                 return 0;
             }
         }
     } else {
         for (int i = mid; i < len; i++) {
             char ch = pop(&stack);
-            if (ch != str[i]) {
+            if (ch != clean[i]) {
                 return 0;
             }
         }
@@ -109,3 +120,4 @@ void printStack(NodePtr cur) {
     }
     printf("]\n");
 }
+
