@@ -21,7 +21,7 @@ int pop(NodePtr * top);
 int isEmpty(NodePtr top);
 void printStack(NodePtr cur);
 
-int main()
+int main(void)
 {
     char str[MAX_SIZE];
     printf("%s", "Please enter a string: ");
