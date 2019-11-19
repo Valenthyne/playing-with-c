@@ -23,7 +23,7 @@ void insert(NodePtr *ptr, char v);
 void display(NodePtr *ptr);
 NodePtr reverse(NodePtr *ptr);
 
-int main()
+int main(void)
 {
     NodePtr start = NULL;
     char ch;
