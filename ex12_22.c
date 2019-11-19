@@ -1,3 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Basic constructs for a tree structure
+struct treeNode {
+    struct treeNode * leftPtr;
+    int data;
+    struct treeNode * rightPtr;
+};
+
+typedef struct treeNode TreeNode;
+typedef TreeNode * TreeNodePtr;
+
+// Function prototypes for tree operations
+
+void insertNode(TreeNodePtr * treePtr, int value);
+TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key);
+
+int main(void) {
+    
+    TreeNodePtr root = NULL;
+    
+    printf("%s\n", "Time to build a tree!");
+    
+    while (1 == 1) {
+        int v;
+        printf("\n%s\n", "Please enter a value (-1 to stop): ");
+        scanf("%d", &v);
+        if (v == -1)
+            break;
+        insertNode(&root, v);
+    }
+    
+    puts("\n");
+    int k;
+    printf("\n%s", "Please insert a value to search for: ");
+    scanf("%d", &k);
+    
+    TreeNodePtr src = binarySearchTree(&root, k);
+    
+    if (*src == NULL) {
+        printf("\n%s\n", "Value not found.");
+    } else {
+        printf("\n%s\n", "Value found.");
+    }
+    
+}
+
+void insertNode(TreeNodePtr * treePtr, int value) {
+    if (*treePtr == NULL) {
+        *treePtr = malloc(sizeof(TreeNode));
+        
+        if (*treePtr != NULL) {
+            (*treePtr)->data = value;
+            (*treePtr)->leftPtr = NULL;
+            (*treePtr)->rightPtr = NULL;
+        } else {
+            printf("\nMemory issue.\n");
+        }
+    } else {
+        if (value < (*treePtr)->data) {
+            insertNode(&((*treePtr)->rightPtr), value);
+        } else {
+            printf("%s", "Duplicate value. Ignored.");
+        }
+    }
+}
+
 TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key) {
 
     // If the tree is empty, return NULL
