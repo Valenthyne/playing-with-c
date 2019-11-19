@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Basic constructs for a linked list node structure
 struct Node {
     char data;
     struct Node *next;
@@ -15,6 +16,7 @@ struct Node {
 typedef struct Node Node;
 typedef Node * NodePtr;
 
+// Function prototypes for linked list operations
 void insert(NodePtr *ptr, char v);
 void display(NodePtr *ptr);
 void concatenate(NodePtr *p1, NodePtr *p2);
@@ -22,6 +24,7 @@ void concatenate(NodePtr *p1, NodePtr *p2);
 int main()
 {
 
+    // Initialize pointers for the two lists
     NodePtr s1 = NULL;
     NodePtr s2 = NULL;
 
@@ -74,7 +77,7 @@ void insert(NodePtr *sPtr, char v) {
         NodePtr prev = NULL;
         NodePtr cur = * sPtr;
 
-        while (cur != NULL && v > cur->data) {
+        while (cur != NULL) {
         prev = cur;
         cur = cur->next;
         }
