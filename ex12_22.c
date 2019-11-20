@@ -17,51 +17,55 @@ void insertNode(TreeNodePtr * treePtr, int value);
 TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key);
 
 int main(void) {
-    
+
     TreeNodePtr root = NULL;
-    
+
     printf("%s\n", "Time to build a tree!");
-    
+
     while (1 == 1) {
-        int v;
+        int v = 0;
         printf("\n%s\n", "Please enter a value (-1 to stop): ");
         scanf("%d", &v);
         if (v == -1)
             break;
+        printf("\nInserting value... %d\n", v);
         insertNode(&root, v);
     }
-    
+
     puts("\n");
     int k;
     printf("\n%s", "Please insert a value to search for: ");
-    scanf("%d", &k);
-    
-    TreeNodePtr src = binarySearchTree(&root, k);
-    
-    if (*src == NULL) {
+    scanf(" %d", &k);
+
+    TreeNodePtr src = binaryTreeSearch(&root, k);
+
+    if (src == NULL) {
         printf("\n%s\n", "Value not found.");
     } else {
-        printf("\n%s\n", "Value found.");
+        printf("\n%d: %s\n", src->data, "Value found.");
     }
-    
+
 }
 
 void insertNode(TreeNodePtr * treePtr, int value) {
+
     if (*treePtr == NULL) {
         *treePtr = malloc(sizeof(TreeNode));
-        
+
         if (*treePtr != NULL) {
             (*treePtr)->data = value;
             (*treePtr)->leftPtr = NULL;
             (*treePtr)->rightPtr = NULL;
         } else {
-            printf("\nMemory issue.\n");
+            printf("Memory allocation error.");
         }
     } else {
         if (value < (*treePtr)->data) {
+            insertNode(&((*treePtr)->leftPtr), value);
+        } else if (value > (*treePtr)->data) {
             insertNode(&((*treePtr)->rightPtr), value);
         } else {
-            printf("%s", "Duplicate value. Ignored.");
+            printf("\n%s", "Duplicate variable!");
         }
     }
 }
@@ -73,10 +77,12 @@ TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key) {
         return NULL;
 
     // Mark the current node
-    TreeNodePtr cur = rootPtr;
+    TreeNodePtr cur = &rootPtr;
 
+    printf("You get here, bud.");
     // While the key has not yet been found
     while (cur->data != key) {
+        printf("Current value: %d", cur->data);
 
         // If no children and not the key, return NULL
         if (cur->data != key && cur->leftPtr == NULL && cur->rightPtr == NULL) {
@@ -97,7 +103,6 @@ TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key) {
             return NULL;
         }
     }
-
     // Current value is equal to the key, return cur
     return cur;
 }
