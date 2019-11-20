@@ -1,19 +1,13 @@
-/*
-    12.6 (Concatenating Lists) Write a program that concatenates two linked lists of characters.
-    The program should include function concatenate that takes pointers to both lists as
-    arguments and concatenates the second list to the first list.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
 // Basic constructs for a linked list node structure
-struct Node {
+struct LinkedListNode {
     char data;
     struct Node *next;
 };
 
-typedef struct Node Node;
+typedef struct LinkedListNode Node;
 typedef Node * NodePtr;
 
 // Function prototypes for linked list operations
@@ -31,6 +25,8 @@ int main(void)
     char ch;
     int c1;
     int c2;
+
+    printf("This program will allow you to generate two lists and concatenate them!\n\n");
 
     printf("How many characters do you want in List #1? ");
     scanf(" %d", &c1);
@@ -90,7 +86,7 @@ void insert(NodePtr *sPtr, char v) {
             ptr->next = cur;
         }
     } else {
-        printf("Memory not available.");
+        printf("\nNot enough memory available to generate node!\n");
     }
 
 }
@@ -110,15 +106,18 @@ void display(NodePtr* ptr) {
 
 void concatenate(NodePtr * p1, NodePtr * p2) {
 
+    // There's nothing to do if both lists are empty
     if (p1 == NULL && p2 == NULL) {
         return;
     }
 
     NodePtr cur = p1;
 
+    // Cycle through and find the end of the first list
     while (cur->next != NULL) {
         cur = cur->next;
     }
 
+    // Link the end of the first list to the second list
     cur->next = p2;
 }
