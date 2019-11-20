@@ -12,7 +12,7 @@ typedef struct treeNode TreeNode;
 typedef TreeNode * TreeNodePtr;
 
 // Function prototypes for tree operations
-
+void inOrder(TreeNodePtr treePtr);
 void insertNode(TreeNodePtr * treePtr, int value);
 TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key);
 
@@ -24,25 +24,36 @@ int main(void) {
 
     while (1 == 1) {
         int v = 0;
-        printf("\n%s\n", "Please enter a value (-1 to stop): ");
+        printf("\n%s", "Insert value (-1 to stop): ");
         scanf("%d", &v);
         if (v == -1)
             break;
-        printf("\nInserting value... %d\n", v);
         insertNode(&root, v);
+        printf("\nCurrent Tree (In-Order Traversal):\n\n\t[ ");
+        inOrder(root);
+        printf(" ]\n");
     }
 
-    puts("\n");
     int k;
-    printf("\n%s", "Please insert a value to search for: ");
+    printf("\n%s", "Enter value to search for: ");
     scanf(" %d", &k);
 
     TreeNodePtr src = binaryTreeSearch(&root, k);
 
-    if (src == NULL) {
-        printf("\n%s\n", "Value not found.");
+    if (root == NULL || src == NULL) {
+        printf("\n%s\n", "NULL node returned. Value not found!");
     } else {
-        printf("\n%d: %s\n", src->data, "Value found.");
+        printf("\n%d: %s\n", src->data, "Node in tree returned. Value found!");
+    }
+
+}
+
+void inOrder(TreeNodePtr treePtr) {
+
+    if (treePtr != NULL) {
+        inOrder(treePtr->leftPtr);
+        printf(" %d ", treePtr->data);
+        inOrder(treePtr->rightPtr);
     }
 
 }
@@ -79,7 +90,6 @@ TreeNodePtr binaryTreeSearch(TreeNodePtr * rootPtr, int key) {
     // Mark the current node
     TreeNodePtr cur = &rootPtr;
 
-    printf("You get here, bud.");
     // While the key has not yet been found
     while (cur->data != key) {
         printf("Current value: %d", cur->data);
