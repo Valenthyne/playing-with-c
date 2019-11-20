@@ -18,20 +18,20 @@ typedef Node * NodePtr;
 // Stack function prototypes
 void push(NodePtr * top, int info);
 int pop(NodePtr * top);
-int isEmpty(NodePtr top);
-void printStack(NodePtr cur);
 
 int main(void)
 {
+    printf("This program will allow you to use a stack to see if a string is a palindrome!\n\n");
+
     char str[MAX_SIZE];
-    printf("%s", "Please enter a string: ");
+    printf("%s", "Enter a string: ");
     scanf("%[^\n]s", str);
     int res = check(str);
 
     if (res) {
-        printf("\n%s is a palindrome.\n", str);
+        printf("\n%s is INDEED a palindrome.\n", str);
     } else {
-        printf("\n%s is not a palindrome.\n", str);
+        printf("\n%s is NOT a palindrome.\n", str);
     }
 
     return 0;
@@ -39,15 +39,19 @@ int main(void)
 
 int check(char * str) {
 
+    // Starts to generate a clean string, free of punctuation and spaces
     char clean[MAX_SIZE];
     int index = 0;
 
+    // Checks if the given character is an alphabetical one
     for (int i = 0; i < strlen(str); i++) {
         if (isalpha(str[i])) {
+            // Makes it lower case for ease of analysis; case is irrelevant for this problem
             clean[index++] = tolower(str[i]);
         }
     }
 
+    // Terminates the string with a null character
     clean[index] = '\0';
 
     int len = strlen(clean);
@@ -56,14 +60,17 @@ int check(char * str) {
         return 1;
     }
 
+    // Midpoint identified for palindrome evaluation
     int mid = len / 2;
 
+    // Start generating a stack
     NodePtr stack = NULL;
 
     for (int i = 0; i < mid; i++) {
             push(&stack, clean[i]);
     }
 
+    // Algorithm for palindrome evaluation will differ by string length (odd or even)
     if (len % 2 != 0) {
         for (int i = mid + 1; i < len; i++) {
             char ch = pop(&stack);
@@ -75,11 +82,13 @@ int check(char * str) {
         for (int i = mid; i < len; i++) {
             char ch = pop(&stack);
             if (ch != clean[i]) {
+                // If at any point the stack char doesn't match the string, not a palindrome
                 return 0;
             }
         }
     }
 
+    // Palindrome achieved
     return 1;
 
 }
@@ -93,7 +102,7 @@ void push(NodePtr* top, int info) {
         newPtr->nextPtr = *top;
         *top = newPtr;
     } else {
-        printf("\nMemory error.");
+        printf("\nNot enough memory available to generate stack!\n");
     }
 
 }
@@ -106,18 +115,3 @@ int pop(NodePtr * top) {
     free(temp);
     return val;
 }
-
-int isEmpty(NodePtr top) {
-    return top == NULL;
-}
-
-void printStack(NodePtr cur) {
-
-    printf("\n[ ");
-    while (cur != NULL) {
-        printf("%c ", cur->data);
-        cur = cur->nextPtr;
-    }
-    printf("]\n");
-}
-
