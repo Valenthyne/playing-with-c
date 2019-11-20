@@ -1,21 +1,15 @@
-/*
-    12.9 (Creating a Linked List, Then Reversing Its Elements)
-    Write a program that creates a linked list of 10 characters,
-    then creates a copy of the list in reverse order.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MAX_CHAR 10
 
 // Basic constructs for a linked list structure
-struct Node {
+struct LinkedListNode {
     char data;
     struct Node *next;
 };
 
-typedef struct Node Node;
+typedef struct LinkedListNode Node;
 typedef Node * NodePtr;
 
 // Function prototypes for linked list operations
@@ -25,33 +19,40 @@ NodePtr reverse(NodePtr *ptr);
 
 int main(void)
 {
+    printf("This program will allow you to reverse a linked list of ten characters!\n\n");
+
     NodePtr start = NULL;
     char ch;
     int c = 0;
 
     printf("%s\n\n", "Please enter 10 characters!");
 
+    // Prompt user to input ten characters of their choice
     while (c != 10) {
         printf("Remaining Characters: %d\n", (10 - c));
-        printf("%s", "Enter: ");
+        printf("%s", "Input value: ");
         scanf(" %c", &ch);
         insert(&start, ch);
         display(start);
         c++;
     }
 
+    // Create a new node pointer that seeks to reverse the list
     NodePtr rev = reverse(start);
 
+    // Display original list to show that it was not modified
     printf("\nOriginal List:");
     display(start);
 
+    // Display reversed list to show it is new and reversed
     printf("\nReversed List:");
     display(rev);
 
     return 0;
 }
 
-void insert(NodePtr *sPtr, char v) {
+// Basic function used to insert nodes into a linked list
+void insert(NodePtr * sPtr, char v) {
 
     int count = 0;
     NodePtr ptr = malloc(sizeof(Node));
@@ -77,12 +78,13 @@ void insert(NodePtr *sPtr, char v) {
             ptr->next = cur;
         }
     } else {
-        printf("Memory not available.");
+        printf("\nNot enough memory available to generate node!\n");
     }
 
 }
 
-void display(NodePtr* ptr) {
+// Basic function used to display a linked list from a given pointer
+void display(NodePtr * ptr) {
 
     NodePtr cur = ptr;
 
@@ -95,6 +97,7 @@ void display(NodePtr* ptr) {
     printf("] \n\n");
 }
 
+// Function used to generate a new list to be comprised of the reversed list of the original input
 NodePtr reverse(NodePtr * ptr) {
 
     char val[MAX_CHAR] = {};
