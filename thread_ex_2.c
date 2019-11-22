@@ -30,6 +30,10 @@ char bufA[MAX_STRINGS][STR_LENGTH] = {"0"};
 char bufB[MAX_STRINGS][STR_LENGTH] = {"0"};
 
 int main(void) {
+	
+	printf("\n%s\n\n", "\tThank you for choosing the String Converter!");
+	printf("%s\n\n", "\tWe take pleasure in removing those pesky whitespace characters.");
+	printf("%s\n\n", "\tProud to announce we are pthread-enabled!");
 
 	// Initializing the mutex lock
 	pthread_mutex_init(&lock, NULL);
@@ -59,6 +63,9 @@ int main(void) {
 	// Destroy the lock at the end
 	pthread_mutex_destroy(&lock);
 	
+	printf("\n%s\n\n", "Regretfully, each customer is limited to three strings per execution.");
+	printf("%s\n\n", "Thank you for using our service. Have a nice day!");
+	
 	return 0;
 }
 
@@ -71,9 +78,9 @@ void readerFunc(void) {
 	char inStr[STR_LENGTH];
 	
 	// Request input from the user and store it in inStr
-	printf("%s: ", "Input a string: ");
+	printf("%s: ", "Enter a string");
 	fgets(inStr, STR_LENGTH, stdin);
-	printf("\nReader %d is receiving user input and accessing buffer A...", readerID++);
+	printf("\n[%9s %d]: Receiving user input, accessing Buffer A...", "Reader", readerID++);
 	
 	// Storing user input in buffer A
 	// Cycle through buffer A to find an empty spot
@@ -92,7 +99,7 @@ void readerFunc(void) {
 void converterFunc(void) {
 	
 	pthread_mutex_lock(&lock);
-	printf("\nConverter %d is converting the user input...", converterID++);
+	printf("\n[%9s %d]: Converting user input...", "Converter", converterID++);
 	// Develop a new string variable
 	char newStr[STR_LENGTH];
 
@@ -134,10 +141,12 @@ void converterFunc(void) {
 void writerFunc(void) {
 
 	pthread_mutex_lock(&lock);
-	printf("\nWriter %d is writing the result to standard output...\n\n", writerID++);
+	printf("\n[%9s %d]: Accessing Buffer B and writing to standard output...\n\n", "Writer", writerID++);
 
 	// Read a string from buffer B
 	int found = 0;
+	
+	printf("\nCongratulations! Your converted string: ");
 	
 	while (!found) {
 		for (int i = 0; i < MAX_STRINGS; i++) {
