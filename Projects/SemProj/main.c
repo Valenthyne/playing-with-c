@@ -14,12 +14,20 @@
 // Defining constants
 #define MAX_STRING 1024
 
+typedef struct identificationCard {
+
+    char fname[15];
+    char lname[15];
+
+} ID, *ID_ptr;
+
 // Function prototypes for the various menus
 void stringMenu();
 void arrayMenu();
 void structMenu();
 void ptrMenu();
 void dsMenu();
+void arithMenu();
 
 // Function prototypes for the string menu functions
 void setString(char * str);
@@ -29,6 +37,7 @@ void swap(char * a, char * b);
 // Function prototypes for the array menu functions
 
 // Function prototypes for the structure menu functions
+void printID(ID_ptr s);
 
 // Function prototypes for the pointer menu functions
 
@@ -37,6 +46,10 @@ void linkedExercise();
 void queueExercise();
 void stackExercise();
 void treeExercise();
+
+// Function prototypes for the arithmetic menu functions
+void calculator();
+void randomizer();
 
 int main()
 {
@@ -54,7 +67,8 @@ int main()
         printf("%s", "\n\t[2] Arrays");
         printf("%s", "\n\t[3] Structure Management");
         printf("%s", "\n\t[4] Pointers");
-        printf("%s", "\n\t[5] Data Structures\n");
+        printf("%s", "\n\t[5] Data Structures");
+        printf("%s", "\n\t[6] Arithmetic Operations\n");
 
         // Receiving input from the user
         printf("%s", "\nPlease select an option: ");
@@ -68,8 +82,14 @@ int main()
             case '2':
                 arrayMenu();
                 break;
+            case '3':
+                structMenu();
+                break;
             case '5':
                 dsMenu();
+                break;
+            case '6':
+                arithMenu();
                 break;
             default:
                 cont = 0;
@@ -77,13 +97,13 @@ int main()
         }
     }
 
-    printf("\n%s", "Thanks for playing!");
+    printf("\n%s", "Thanks for playing!\n");
     return 0;
 }
 
 void stringMenu() {
     char input[MAX_STRING];
-    int cond = 0;
+    int cond = 1;
     char ch;
 
     printf("\n%s", "Welcome to the String Menu!");
@@ -91,7 +111,7 @@ void stringMenu() {
     setString(input);
 
 
-    while (cond == 0) {
+    while (cond == 1) {
 
         printf("%s: %s", "Current string", input);
         printf("\n\n%s\n", "What would you like to do with this string?");
@@ -119,10 +139,10 @@ void arrayMenu() {
 
     srand(time(NULL));
     int arr[10] = {0};
-    int cond = 0;
+    int cond = 1;
     int v;
 
-    while (cond == 0) {
+    while (cond == 1) {
 
         for (int i = 0 ; i < 10; i++) {
             arr[i] = rand() % 20;
@@ -144,13 +164,42 @@ void arrayMenu() {
     }
 }
 
+void structMenu() {
+
+    printf("\n%s\n", "Welcome to the Struct Menu!");
+    printf("\n%s\n", "Let's build an ID card...");
+
+    ID user;
+    ID_ptr user_ptr = &user;
+
+    char fname[15];
+    char lname[15];
+    char str;
+
+    printf("\n%s", "Please enter a name: ");
+    scanf("%s", user_ptr->fname);
+
+    printf("\n%s", "Please enter a last name: ");
+    scanf("%s", user_ptr->lname);
+
+    printID(user_ptr);
+
+}
+
+void printID(ID_ptr s) {
+
+    printf("User first name: %s", s->fname);
+    printf("User last name: %s", s->lname);
+
+}
+
 void dsMenu() {
 
     printf("\n%s\n", "Welcome to the Data Structure Menu!");
-    int cond = 0;
+    int cond = 1;
     char ch;
 
-    while (cond == 0) {
+    while (cond == 1) {
 
         printf("\n%s\n", "Which data structure would you like to use?");
         printf("%s", "\n\t[1] Linked Lists");
@@ -180,6 +229,131 @@ void dsMenu() {
         }
 
     }
+}
+
+void arithMenu() {
+
+    printf("\n%s\n", "Welcome to the Arithmetic Menu!");
+    int cond = 1;
+    char ch;
+
+    while (cond == 1) {
+
+        printf("\n%s\n", "What would you like to do?");
+        printf("%s", "\n\t[1] Access the basic calculator");
+        printf("%s", "\n\t[2] Play with random numbers");
+
+        printf("%s", "\n\nPlease select an option: ");
+        scanf(" %c", &ch);
+
+        switch (ch) {
+            case '1':
+                calculator();
+                break;
+            case '2':
+                randomizer();
+                break;
+            default:
+                cond = -1;
+                break;
+        }
+
+    }
+
+}
+
+void calculator() {
+
+    srand(time(NULL));
+
+    printf("\n%s\n", "Let's crunch some numbers!");
+    int cond = 1;
+    char ch;
+    int x;
+    int y;
+
+    while (cond == 1) {
+
+        printf("\nPlease pick two numbers (-1 to exit): ");
+        scanf("%d", &x);
+        scanf("%d", &y);
+
+        if (x == -1 || y == -1) {
+            break;
+        }
+
+        printf("\nWhat do you want to do with %d and %d?\n", x, y);
+        printf("%s", "\n\t[1] Addition (+)");
+        printf("%s", "\n\t[2] Subtraction (-)");
+        printf("%s", "\n\t[3] Multiplication (x)");
+        printf("%s", "\n\t[4] Division (\\)");
+        printf("%s", "\n\t[5] Equality (=)");
+
+        printf("%s", "\n\nPlease select an option: ");
+        scanf(" %c", &ch);
+
+        switch (ch) {
+            case '1':
+                printf("\nResult: %d", x + y);
+                break;
+            case '2':
+                printf("\nResult: %d", x - y);
+                break;
+            case '3':
+                printf("\nResult: %d", x * y);
+                break;
+            case '4':
+                printf("\nResult: %d", x / y);
+                break;
+            case '5':
+                if (x == y) {
+                    printf("\n%d and %d are equal!", x, y);
+                } else {
+                    printf("\n%d and %d are not equal!", x, y);
+                }
+                break;
+            default:
+                cond = -1;
+                break;
+        }
+
+        puts("");
+
+    }
+
+
+}
+
+void randomizer() {
+
+     srand(time(NULL));
+
+     int n;
+
+     printf("%s ", "\nHow many numbers would you like to randomize?");
+     scanf("%d", &n);
+
+     int nums[n];
+     int bound;
+
+     printf("\nTime to randomize %d numbers...\n", n);
+     printf("\n%s", "What would you like your bound to be? ");
+     scanf("%d", &bound);
+
+     printf("\n\n%s","Generating numbers...\n\n");
+
+     for (int i = 0; i < n; i++) {
+        nums[i] = rand() % bound;
+     }
+
+     printf("[ ");
+
+     for (int i = 0; i < n; i++) {
+        printf("%d ", nums[i]);
+     }
+
+     printf(" ]\n");
+
 }
 
 void linkedExercise() {
