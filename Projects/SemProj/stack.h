@@ -6,7 +6,7 @@ struct stackNode {
 typedef struct stackNode StkNode;
 typedef StkNode * StkNodePtr;
 
-// Stack function protoypes
+// Stack function prototypes
 
 void push(StkNodePtr * top, int info);
 int pop(StkNodePtr * top);
@@ -15,7 +15,7 @@ void printStack(StkNodePtr cur);
 
 void push(StkNodePtr* top, int info) {
 
-    StkNodePtr newPtr = malloc(sizeof(Node));
+    StkNodePtr newPtr = malloc(sizeof(StkNode));
 
     if (newPtr != NULL) {
         newPtr->data = info;

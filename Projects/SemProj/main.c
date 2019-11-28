@@ -18,6 +18,8 @@ typedef struct identificationCard {
 
     char fname[15];
     char lname[15];
+    int age;
+    char gender[15];
 
 } ID, *ID_ptr;
 
@@ -34,12 +36,8 @@ void setString(char * str);
 void revString(char * str);
 void swap(char * a, char * b);
 
-// Function prototypes for the array menu functions
-
 // Function prototypes for the structure menu functions
 void printID(ID_ptr s);
-
-// Function prototypes for the pointer menu functions
 
 // Function prototypes for the data structure menu functions
 void linkedExercise();
@@ -66,9 +64,8 @@ int main()
         printf("%s", "\n\t[1] String Manipulation");
         printf("%s", "\n\t[2] Arrays");
         printf("%s", "\n\t[3] Structure Management");
-        printf("%s", "\n\t[4] Pointers");
-        printf("%s", "\n\t[5] Data Structures");
-        printf("%s", "\n\t[6] Arithmetic Operations\n");
+        printf("%s", "\n\t[4] Data Structures");
+        printf("%s", "\n\t[5] Arithmetic Operations\n");
 
         // Receiving input from the user
         printf("%s", "\nPlease select an option: ");
@@ -85,10 +82,10 @@ int main()
             case '3':
                 structMenu();
                 break;
-            case '5':
+            case '4':
                 dsMenu();
                 break;
-            case '6':
+            case '5':
                 arithMenu();
                 break;
             default:
@@ -365,6 +362,10 @@ void linkedExercise() {
 
 void queueExercise() {
 
+    QueuePtr head = malloc(sizeof(QueueNode));
+
+    enqueue(head, 5);
+
 }
 
 void stackExercise() {
@@ -375,6 +376,28 @@ void stackExercise() {
 }
 
 void treeExercise() {
+
+    TreeNodePtr root = NULL;
+
+    printf("\n%s\n", "Let's build a binary tree!");
+
+    int cond = 1;
+
+    while (cond) {
+        int val;
+        printf("\n%s", "Please enter a value for the tree (-1 to end): ");
+        scanf("%d", &val);
+        if (val == -1) {
+            break;
+        }
+        insertTNode(&root, val);
+    }
+
+    printf("\nLet's see your tree!");
+
+    printf("\n[ ");
+    inOrder(root);
+    printf("]\n");
 
 }
 

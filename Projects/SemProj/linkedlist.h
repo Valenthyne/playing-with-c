@@ -6,13 +6,13 @@ struct Node {
 typedef struct Node LinkNode;
 typedef LinkNode * LinkNodePtr;
 
-void insert(LinkNodePtr *ptr, char v);
+void insertLNode(LinkNodePtr *ptr, char v);
 void display(LinkNodePtr *ptr);
 
-void insert(LinkNodePtr * sPtr, char v) {
+void insertLNode (LinkNodePtr * sPtr, char v) {
 
     int count = 0;
-    LinkNodePtr ptr = malloc(sizeof(Node));
+    LinkNodePtr ptr = malloc(sizeof(LinkNode));
 
     if (ptr != NULL) {
         ptr->data = v;
@@ -41,7 +41,7 @@ void insert(LinkNodePtr * sPtr, char v) {
 }
 
 // Basic function used to display a linked list from a given pointer
-void display(NodePtr * ptr) {
+void display(LinkNodePtr * ptr) {
 
     LinkNodePtr cur = ptr;
 

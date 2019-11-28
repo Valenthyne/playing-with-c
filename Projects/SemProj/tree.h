@@ -8,7 +8,7 @@ typedef struct treeNode TreeNode;
 typedef TreeNode * TreeNodePtr;
 
 void inOrder(TreeNodePtr treePtr);
-void insertNode(TreeNodePtr * treePtr, int value);
+void insertTNode(TreeNodePtr * treePtr, int value);
 TreeNodePtr * binaryTreeSearch(TreeNodePtr rootPtr, int key);
 
 void inOrder(TreeNodePtr treePtr) {
@@ -21,7 +21,7 @@ void inOrder(TreeNodePtr treePtr) {
 
 }
 
-void insertNode(TreeNodePtr * treePtr, int value) {
+void insertTNode(TreeNodePtr * treePtr, int value) {
 
     if (*treePtr == NULL) {
         *treePtr = malloc(sizeof(TreeNode));
@@ -35,9 +35,9 @@ void insertNode(TreeNodePtr * treePtr, int value) {
         }
     } else {
         if (value < (*treePtr)->data) {
-            insertNode(&((*treePtr)->leftPtr), value);
+            insertTNode(&((*treePtr)->leftPtr), value);
         } else if (value > (*treePtr)->data) {
-            insertNode(&((*treePtr)->rightPtr), value);
+            insertTNode(&((*treePtr)->rightPtr), value);
         } else {
             printf("\n%s", "Duplicate variable!");
         }
