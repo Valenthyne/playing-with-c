@@ -1,10 +1,10 @@
-struct Node {
+struct LinkedNode {
     char data;
-    struct Node *next;
+    struct LinkedNode *next;
 };
 
-typedef struct Node LinkNode;
-typedef LinkNode * LinkNodePtr;
+typedef struct LinkedNode LinkedNode;
+typedef LinkedNode * LinkNodePtr;
 
 void insertLNode(LinkNodePtr *ptr, char v);
 void display(LinkNodePtr *ptr);
@@ -12,7 +12,7 @@ void display(LinkNodePtr *ptr);
 void insertLNode (LinkNodePtr * sPtr, char v) {
 
     int count = 0;
-    LinkNodePtr ptr = malloc(sizeof(LinkNode));
+    LinkNodePtr ptr = malloc(sizeof(LinkedNode));
 
     if (ptr != NULL) {
         ptr->data = v;

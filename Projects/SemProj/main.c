@@ -169,24 +169,36 @@ void structMenu() {
     ID user;
     ID_ptr user_ptr = &user;
 
-    char fname[15];
-    char lname[15];
-    char str;
-
     printf("\n%s", "Please enter a name: ");
     scanf("%s", user_ptr->fname);
 
     printf("\n%s", "Please enter a last name: ");
     scanf("%s", user_ptr->lname);
 
+    printf("\n%s", "Please enter an age: ");
+    scanf("%d", &user_ptr->age);
+
+    printf("\n%s", "Please enter a gender: ");
+    scanf("%s", user_ptr->gender);
+
     printID(user_ptr);
+
+    puts("\nReturning to menu...");
 
 }
 
 void printID(ID_ptr s) {
 
-    printf("User first name: %s", s->fname);
-    printf("User last name: %s", s->lname);
+    printf("\n---------------------------\n");
+
+    printf("\n[%25s]\n", "User Identification Chart");
+
+    printf("\n%15s: %-15s", "First Name", s->fname);
+    printf("\n%15s: %-15s", "Last Name", s->lname);
+    printf("\n%15s: %-15d", "Age", s->age);
+    printf("\n%15s: %-15s\n", "Gender", s->gender);
+
+    puts("\n---------------------------");
 
 }
 
@@ -355,23 +367,59 @@ void randomizer() {
 
 void linkedExercise() {
 
-    LinkNodePtr head = malloc(sizeof(LinkNode));
+    LinkNodePtr head = malloc(sizeof(LinkedNode));
     puts("Linked List node created!");
 
 }
 
 void queueExercise() {
 
-    QueuePtr head = malloc(sizeof(QueueNode));
+    QueueNodePtr head = NULL;
+    QueueNodePtr tail = NULL;
 
-    enqueue(head, 5);
+    printf("\n%s\n", "Let's build a queue!");
+    printf("\n%s\n", "Insert [-1] to Dequeue, [-2] to exit!");
+
+    int cond = 1;
+
+    while (cond) {
+        int val;
+        printf("\n%s", "Insert value: ");
+        scanf("%d", &val);
+        if (val == -1) {
+            dequeue(&head, &tail);
+        } else if (val == -2) {
+            break;
+        } else {
+            enqueue(&head, &tail, val);
+        }
+        printQueue(head);
+    }
 
 }
 
 void stackExercise() {
 
-    StkNodePtr head = malloc(sizeof(StkNode));
-    puts("Stack node created!");
+    StkNodePtr head = NULL;
+
+    printf("\n%s\n", "Let's build a stack!");
+    printf("\n%s\n", "Insert [-1] to Pop, [-2] to exit!");
+
+    int cond = 1;
+
+    while (cond) {
+        int val;
+        printf("\n%s", "Insert value: ");
+        scanf("%d", &val);
+        if (val == -1) {
+            pop(&head);
+        } else if (val == -2) {
+            break;
+        } else {
+            push(&head, val);
+        }
+        printStack(head);
+    }
 
 }
 

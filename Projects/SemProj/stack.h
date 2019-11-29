@@ -10,7 +10,7 @@ typedef StkNode * StkNodePtr;
 
 void push(StkNodePtr * top, int info);
 int pop(StkNodePtr * top);
-int isEmpty(StkNodePtr top);
+int isStackEmpty(StkNodePtr top);
 void printStack(StkNodePtr cur);
 
 void push(StkNodePtr* top, int info) {
@@ -29,9 +29,34 @@ void push(StkNodePtr* top, int info) {
 
 int pop(StkNodePtr * top) {
 
+    if (isStackEmpty(*top)) {
+        printf("\n%s\n", "Stack is empty.");
+        return -1;
+    }
+
     StkNodePtr temp = * top;
-    int val = (*top)->data;
+    int result = (*top)->data;
     *top = (*top)->nextPtr;
+
+    printf("\n%s%d\n", "Removing from stack: ", result);
+
     free(temp);
-    return val;
+    return result;
+}
+
+void printStack(StkNodePtr cur) {
+
+    StkNodePtr temp = cur;
+
+    printf("\n[ ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->nextPtr;
+    }
+    printf("]\n");
+
+}
+
+int isStackEmpty(StkNodePtr top) {
+    return top == NULL;
 }

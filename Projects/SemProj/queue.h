@@ -1,41 +1,76 @@
 struct QueueNode {
-    char data;
+    int data;
     struct QueueNode *next;
-};
-
-struct Queue {
-    struct QueueNode * front;
-    struct QueueNode * back;
 };
 
 typedef struct QueueNode QueueNode;
 typedef QueueNode * QueueNodePtr;
-typedef struct Queue * QueuePtr;
 
-void enqueue(QueuePtr q, int val);
-QueueNodePtr dequeue(QueueNodePtr q);
+void enqueue(QueueNodePtr * head, QueueNodePtr * tail, int val);
+int dequeue(QueueNodePtr * head, QueueNodePtr * tail);
+int isQueueEmpty(QueueNodePtr head);
+void printQueue(QueueNodePtr cur);
 
+void enqueue(QueueNodePtr * head, QueueNodePtr * tail, int val) {
 
-void enqueue(QueuePtr q, int val) {
+    QueueNodePtr nodePtr = malloc(sizeof(QueueNode));
 
-    QueueNodePtr node = NULL;
-    node = malloc(sizeof(QueueNode));
-    node->data = val;
+    if (nodePtr != NULL) {
+        nodePtr->data = val;
+        nodePtr->next = NULL;
 
-    if (q->back == NULL) {
-        q->front = node;
-        q->back = node;
-        return;
+        if (isQueueEmpty(*head)) {
+            *head = nodePtr;
+        } else {
+            (*tail)->next = nodePtr;
+        }
+
+        *tail = nodePtr;
+    } else {
+        printf("Memory issue.");
     }
-
-    q->back->next = node;
-    q->back = node;
-
 
 }
 
-QueueNodePtr dequeue(QueueNodePtr q) {
+int dequeue(QueueNodePtr * head, QueueNodePtr * tail) {
+
+    if (isQueueEmpty(*head)) {
+        printf("\n%s\n", "The queue is empty.");
+        return -1;
+    }
+
+    int result = (*head)->data;
+    QueueNodePtr temp = *head;
+    *head = (*head)->next;
+
+    if (head == NULL) {
+        tail = NULL;
+    }
+
+    free(temp);
+
+    printf("\n%s%d\n", "Removing from queue: ", result);
+
+    return result;
+
+}
 
 
+int isQueueEmpty(QueueNodePtr head) {
+    return head == NULL;
+}
+
+void printQueue(QueueNodePtr cur) {
+
+    QueueNodePtr temp = cur;
+
+    printf("\n[ ");
+
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("]\n");
 
 }
