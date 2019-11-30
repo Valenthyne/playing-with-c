@@ -99,8 +99,3 @@ void remValue(LinkNodePtr ptr, int k) {
     printf("\n%s%d\n", "List after removing ", k);
     showPointers(ptr);
 }
-
-void sortList(LinkNodePtr * ptr) {
-
-
-}
