@@ -22,7 +22,7 @@ void push(StkNodePtr* top, int info) {
         newPtr->nextPtr = *top;
         *top = newPtr;
     } else {
-        printf("\nNot enough memory available to generate stack!\n");
+        printf("\nNot enough memory available to push value!\n");
     }
 
 }

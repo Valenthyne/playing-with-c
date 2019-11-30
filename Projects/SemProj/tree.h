@@ -31,7 +31,7 @@ void insertTNode(TreeNodePtr * treePtr, int value) {
             (*treePtr)->leftPtr = NULL;
             (*treePtr)->rightPtr = NULL;
         } else {
-            printf("\nNot enough memory available to generate node!\n");
+            printf("\nNot enough memory available to insert node!\n");
         }
     } else {
         if (value < (*treePtr)->data) {

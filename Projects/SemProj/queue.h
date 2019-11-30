@@ -27,7 +27,7 @@ void enqueue(QueueNodePtr * head, QueueNodePtr * tail, int val) {
 
         *tail = nodePtr;
     } else {
-        printf("Memory issue.");
+        printf("\nNot enough memory available to enqueue value!\n");
     }
 
 }
